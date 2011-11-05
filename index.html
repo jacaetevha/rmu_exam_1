@@ -12,12 +12,12 @@
           font-family: Helvetica, Arial, FreeSans, san-serif;
           color: #222;
         }
-        h1 { font-size: 3.8em; color: #6c8ee7; margin-bottom: 3px; }
+        h1 { font-size: 3.8em; color: #4572A7; margin-bottom: 3px; }
         h1 .small { font-size: 0.4em; }
         h1 a { text-decoration: none }
-        h2 { font-size: 1.5em; color: #6c8ee7; }
-        h3 { text-align: center; color: #6c8ee7; }
-        a { color: #6c8ee7; }
+        h2 { font-size: 1.5em; color: #4572A7; }
+        h3 { text-align: center; color: #4572A7; }
+        a { color: #4572A7; }
         .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
         .download { float: right; }
         pre { background: #000; color: #fff; padding: 15px;}
@@ -54,14 +54,32 @@
                     <a href="https://github.com/jacaetevha/rmu_exam_1">rmu_exam_1</a>
                       <span class="small">by <a href="https://github.com/jacaetevha">jacaetevha</a></span>
                 </h1>
-                <div class="description">
+                <div class="grid_8 push_1 description">
                   Ruby Mendicant University Exam #1
                 </div>
-                <h2>Authors</h2>
-                <p>Jason Rogers (jacaetevha@gmail.com)<br/></p>
-                <h2>Contact</h2>
-                <p>Jason Rogers (jacaetevha gmail dot com)<br/></p>
-                
+                <div class='grid_8 push_1'>
+                  <p>
+                    I had so much fun with this project, that I decided
+                    to add a little bit of analysis for kicks. I ran my
+                    implementation several hundred times in JRuby 1.6.4
+                    and Ruby 1.9.2 to see the memory usage in each Ruby
+                    at different character insertion thresholds. However,
+                    don't read too much into the stats, they aren't really
+                    indicative of much.
+                  </p>
+                  <p>
+                    Of course, Ruby 1.9.2 used less memory overall, but
+                    the really neat thing to see was: as the threshold
+                    increased, JRuby's memory increase was nowhere near
+                    as dramatic as Ruby 1.9.2's memory increase.
+                  </p>
+                </div>
+                <div class='container_12'>
+                    <div id='container' class='grid_12'>&nbsp;</div>
+                </div>
+                <div class='timestamp container_12'>
+                    <div class='grid_12'>Created on 2011-11-05</div>
+                </div>                
                 <h2>Download</h2>
                 <p>
                   You can download this project in either
@@ -76,6 +94,9 @@
                 <div class="footer">
                   get the source code on GitHub : <a href="https://github.com/jacaetevha/rmu_exam_1">jacaetevha/rmu_exam_1</a>
                 </div>
+                <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>
+                <script type='text/javascript' src='http://highcharts.com/js/highcharts.js'></script>
+                <script type='text/javascript' src='./chart.js'></script>
             </div>
         </div>
     </body>
