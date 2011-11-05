@@ -1,0 +1,146 @@
+<html>
+  <head>
+	<style type='text/css'>
+	.timestamp {
+		text-align: right;
+		font-size: 11px;
+		font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+		color: #666;
+		margin-top: 3em;
+	}
+	</style>
+	<link rel="stylesheet" href="http://960.gs/css/960.css">
+  </head>
+  <body>
+    <div class='container_12'>
+    	<div id='container' class='grid_12'>&nbsp;</div>
+    </div>
+	<div class='timestamp container_12'>
+		<div class='grid_12'>Created on %s</div>
+	</div>
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>
+    <script type='text/javascript' src='http://highcharts.com/js/highcharts.js'></script>
+    <script type='text/javascript'>
+var chart;
+$(document).ready(function() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'container',
+         zoomType: 'xy'
+      },
+      credits: {
+         enabled: false
+      },
+      title: {
+        text: 'Average Memory Usage Over Trial Runs'
+      },
+      subtitle: {
+        text: 'per Ruby Implementation'
+      },
+      xAxis: [{
+         categories: %s
+      }],
+      yAxis: [{ // Primary yAxis
+         labels: {
+            formatter: function() {
+               return this.value +' bytes';
+            },
+            style: {
+               color: '#4572A7'
+            }
+         },
+         title: {
+            text: 'Starting Memory',
+            style: {
+               color: '#4572A7'
+            }
+         },
+         opposite: true
+         
+      }, { // Secondary yAxis
+         gridLineWidth: 0,
+         title: {
+            text: 'Ending Memory',
+            style: {
+               color: '#89A54E'
+            }
+         },
+         labels: {
+            formatter: function() {
+               return this.value +' bytes';
+            },
+            style: {
+               color: '#89A54E'
+            }
+         }
+         
+      }, { // Tertiary yAxis
+         gridLineWidth: 0,
+         title: {
+            text: 'Percentage Change',
+            style: {
+               color: '#AA4643'
+            }
+         },
+         labels: {
+            formatter: function() {
+               return this.value +' %%';
+            },
+            style: {
+               color: '#AA4643'
+            }
+         },
+         opposite: true
+      }],
+      tooltip: {
+         formatter: function() {
+            var unit = {
+               'Starting Memory': 'b',
+               'Ending Memory': 'b',
+               'Percentage Change': '%%'
+            }[this.series.name];
+            
+            return ''+
+               this.x +': '+ this.y +' '+ unit;
+         }
+      },
+      legend: {
+         layout: 'vertical',
+         align: 'left',
+         x: 120,
+         verticalAlign: 'top',
+         y: 80,
+         floating: true,
+         backgroundColor: '#FFFFFF'
+      },
+      series: [{
+         name: 'Starting Memory',
+         color: '#4572A7',
+         type: 'spline',
+         yAxis: 0,
+         data: %s
+      
+      }, {
+         name: 'Percentage Change',
+         type: 'spline',
+         color: '#AA4643',
+         yAxis: 2,
+         data: %s,
+         marker: {
+            enabled: false
+         },
+         dashStyle: 'shortdot'               
+      
+      }, {
+         name: 'Ending Memory',
+         color: '#89A54E',
+         type: 'spline',
+         data: %s
+      }]
+   });
+   
+   
+});
+    </script>
+  </body>
+</html>

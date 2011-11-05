@@ -1,0 +1,80 @@
+#!/bin/bash
+
+# list more Ruby implementations here
+RUBIES=( 'jruby-1.6.4' 'ruby-1.9.2' )
+
+load_rvm() {
+  rvm_binary_path=`which rvm | xargs dirname | xargs dirname`
+  if [ "$?" -ne "0" ]; then
+    echo "RVM must be installed..."
+    exit -1
+  else
+    echo "Found RVM at $rvm_binary_path"
+  fi
+  source $rvm_binary_path/scripts/rvm
+}
+
+create_ruby_cmd() {
+  if [[ "$ruby" =~ "jruby" ]]
+  then
+    ruby_cmd="ruby --1.9"
+  else
+    ruby_cmd="ruby"
+  fi  
+}
+
+start_cmd_file() {
+  echo "rvm use $ruby" >> cmd_file
+  echo "gem which contest > /dev/null" >> cmd_file
+  echo "if [ \"\$?\" -ne \"0\" ]; then gem install contest; fi" >> cmd_file  
+}
+
+run_cmd_file() {
+  . cmd_file
+  rm -f cmd_file
+}
+
+run_unit_tests() {
+  load_rvm
+  for ruby in "${RUBIES[@]}"
+  do
+    create_ruby_cmd
+    start_cmd_file
+    echo "$ruby_cmd ./test/document_test.rb lib/text_edit " >> cmd_file
+  done
+  run_cmd_file
+}
+
+run_memory_tests() {
+  load_rvm
+  for ruby in "${RUBIES[@]}"
+  do
+    create_ruby_cmd
+    start_cmd_file
+    echo "$ruby_cmd ./memory_test.rb '$ruby' lib/text_edit $*" >> cmd_file
+  done
+  run_cmd_file
+}
+
+show_help() {
+  echo "This script is designed to work with RVM: http://beginrescueend.com/"
+  echo "If you do not have RVM installed, please do so now. You can edit this"
+  echo "script to include other RVM-installed Ruby implementations."
+  echo
+  echo "-h | --help                  Show this message"
+  echo "-t | --test                  Run the unit tests"
+  echo "-m | --memtest [int:chars]   Run the memory tests, optionally"
+  echo "                             specifying number of chars to insert"
+}
+
+case "$1" in
+  -t|--test)
+    run_unit_tests
+    ;;
+  -m|--memtest)
+    run_memory_tests $*
+    ;;
+  -h|--help|*)
+    show_help
+    ;;
+esac
