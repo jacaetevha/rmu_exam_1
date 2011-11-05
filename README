@@ -1,0 +1,7 @@
+This is my implementation of the RMU Entrance Exam #1.
+
+I've added some stats gathering and the ability to run
+unit tests or the memory test across multiple Rubies (see
+the multi_rubies script for details).
+
+Refer to the rmu_entrance_exam.pdf for more information.
