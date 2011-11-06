@@ -84,9 +84,9 @@ $(document).ready(function() {
       legend: {
          layout: 'vertical',
          align: 'left',
-         x: 120,
+         x: 50,
          verticalAlign: 'top',
-         y: 80,
+         y: 50,
          floating: true,
          backgroundColor: '#FFFFFF'
       },
